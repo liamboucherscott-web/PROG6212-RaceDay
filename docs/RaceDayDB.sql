@@ -60,3 +60,15 @@ CREATE TABLE Event (
     FOREIGN KEY (OrganiserId) REFERENCES [User](UserId)
 );
 GO
+
+-- Category table
+CREATE TABLE Category (
+    CategoryId      INT IDENTITY(1,1) PRIMARY KEY,
+    EventId         INT           NOT NULL,
+    Name            NVARCHAR(50)  NOT NULL,
+    Description     NVARCHAR(255) NULL,
+    MaxParticipants INT           NULL,
+    EntryFee        DECIMAL(8,2)  NOT NULL DEFAULT 0,
+    FOREIGN KEY (EventId) REFERENCES Event(EventId) ON DELETE CASCADE
+);
+GO
