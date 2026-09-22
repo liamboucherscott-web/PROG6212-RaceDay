@@ -60,3 +60,25 @@ See `/docs` for:
 
 3\. Run the script against a clean SQL Server instance
 
+---
+
+## Entity Relationship Diagram
+
+![RaceDay ERD](docs/ERD.png)
+
+---
+
+## CI/CD Status
+
+![Green Build](docs/ci-screenshot.png)
+
+### Note on CI/CD
+
+GitHub Actions is disabled at the organization level (EMGPPT policy).
+The workflow file at `.github/workflows/validate-docs.yml` is fully
+configured to validate the `/docs` folder and required files.
+
+A mirror of this repository is available at
+[https://github.com/liamboucherscott-web/PROG6212-RaceDay](https://github.com/liamboucherscott-web/PROG6212-RaceDay)
+where the workflow runs successfully (see screenshot above).
+
