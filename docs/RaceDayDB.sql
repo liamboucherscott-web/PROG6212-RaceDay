@@ -138,3 +138,27 @@ INSERT INTO Event (Name, Description, EventDate, Location, Distance, EventTypeId
     ('Cape Town Cycle Tour Lite','Family-friendly 30km cycle.',               '2026-05-03 07:30:00', 'Green Point, Cape Town', 30.00, 3, 2),
     ('Soweto Charity Walk',      'A 5km walk raising funds for local schools.','2026-06-21 08:00:00', 'Orlando Stadium, Soweto', 5.00, 2, 1);
 GO
+
+-- Seed Categories
+INSERT INTO Category (EventId, Name, Description, MaxParticipants, EntryFee) VALUES
+    (1, 'Senior (18-39)', 'Open senior category for the 10K',   500, 150.00),
+    (1, 'Veteran (40+)',  'Veteran category for the 10K',       300, 150.00),
+    (2, 'Open 30km',      'Open category for the cycle tour',   400, 200.00),
+    (2, 'Junior (U18)',   'Junior category for the cycle tour', 150, 100.00),
+    (3, 'Open 5km Walk',  'General walking category',          1000,  50.00);
+
+-- Seed Enrolments
+INSERT INTO Enrolment (UserId, EventId, CategoryId, Status) VALUES
+    (3, 1, 1, 'Confirmed'),
+    (4, 1, 2, 'Confirmed'),
+    (3, 3, 5, 'Confirmed'),
+    (4, 2, 3, 'Pending');
+
+-- Seed Results
+INSERT INTO Result (EnrolmentId, FinishTime, FinishingPosition) VALUES
+    (1, '00:48:12', 47),
+    (2, '00:55:30', 118),
+    (3, '00:38:05', 12);
+
+PRINT 'RaceDayDB created and seeded successfully.';
+GO
