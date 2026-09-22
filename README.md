@@ -58,7 +58,7 @@ account at
 
 ## Video Walkthrough
 
-_Link will be added after recording._
+[Watch the Part 1 video on YouTube](https://youtu.be/bs2I2O4bS6k)
 
 ---
 

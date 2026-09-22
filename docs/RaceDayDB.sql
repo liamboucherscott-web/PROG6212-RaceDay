@@ -149,4 +149,4 @@ INSERT INTO Result (EnrolmentId, FinishTime, FinishingPosition) VALUES
     (3, '00:38:05', 12);
 
 PRINT 'RaceDayDB created and seeded successfully.';
-GOGO
+GO
