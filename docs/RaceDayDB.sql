@@ -14,3 +14,17 @@ GO
 -- Use the database
 USE RaceDayDB;
 GO
+
+-- Role table
+CREATE TABLE Role (
+    RoleId   INT IDENTITY(1,1) PRIMARY KEY,
+    RoleName NVARCHAR(50) NOT NULL UNIQUE
+);
+GO
+
+-- EventType table
+CREATE TABLE EventType (
+    EventTypeId INT IDENTITY(1,1) PRIMARY KEY,
+    TypeName    NVARCHAR(50) NOT NULL UNIQUE
+);
+GO
