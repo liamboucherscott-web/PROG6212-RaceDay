@@ -43,3 +43,20 @@ CREATE TABLE [User] (
     FOREIGN KEY (RoleId) REFERENCES Role(RoleId)
 );
 GO
+
+-- Event table
+CREATE TABLE Event (
+    EventId        INT IDENTITY(1,1) PRIMARY KEY,
+    Name           NVARCHAR(100) NOT NULL,
+    Description    NVARCHAR(500) NULL,
+    EventDate      DATETIME      NOT NULL,
+    Location       NVARCHAR(150) NOT NULL,
+    Distance       DECIMAL(6,2)  NOT NULL,
+    EventTypeId    INT           NOT NULL,
+    OrganiserId    INT           NOT NULL,
+    BannerImageUrl NVARCHAR(500) NULL,
+    CreatedAt      DATETIME      NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (EventTypeId) REFERENCES EventType(EventTypeId),
+    FOREIGN KEY (OrganiserId) REFERENCES [User](UserId)
+);
+GO
