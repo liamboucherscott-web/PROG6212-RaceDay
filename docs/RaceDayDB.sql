@@ -88,3 +88,15 @@ CREATE TABLE Enrolment (
     CHECK (Status IN ('Confirmed','Pending','Cancelled'))
 );
 GO
+
+-- Result table
+CREATE TABLE Result (
+    ResultId          INT IDENTITY(1,1) PRIMARY KEY,
+    EnrolmentId       INT      NOT NULL UNIQUE,
+    FinishTime        TIME     NOT NULL,
+    FinishingPosition INT      NOT NULL,
+    CapturedAt        DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (EnrolmentId) REFERENCES Enrolment(EnrolmentId) ON DELETE CASCADE,
+    CHECK (FinishingPosition > 0)
+);
+GO
