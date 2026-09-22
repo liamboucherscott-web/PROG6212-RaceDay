@@ -1,0 +1,29 @@
+# ---------- C# / .NET / Visual Studio ----------
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ---------- ASP.NET secrets ----------
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# ---------- Database files ----------
+*.mdf
+*.ldf
+*.sql.bak
+
+# ---------- OS junk ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Environment files ----------
+.env
+.env.local
