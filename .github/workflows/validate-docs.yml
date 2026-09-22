@@ -1,0 +1,38 @@
+name: Validate Repository Structure
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check /docs folder exists
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "ERROR: docs folder is missing"
+            exit 1
+          fi
+          echo "docs folder found"
+
+      - name: Check required files exist in /docs
+        run: |
+          test -f docs/ERD.png || (echo "ERROR: docs/ERD.png is missing" && exit 1)
+          test -f docs/api-endpoint-plan.md || (echo "ERROR: docs/api-endpoint-plan.md is missing" && exit 1)
+          test -f docs/RaceDayDB.sql || (echo "ERROR: docs/RaceDayDB.sql is missing" && exit 1)
+          echo "All required documents present"
+
+      - name: Check README exists
+        run: |
+          test -f README.md || (echo "ERROR: README.md is missing" && exit 1)
+          echo "README.md found"
+
+      - name: Workflow complete
+        run: echo "Repository structure validated successfully"

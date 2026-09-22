@@ -1,0 +1,2 @@
+-- RaceDay Database Script
+-- This script is in progress. Full schema and seed data to follow.
