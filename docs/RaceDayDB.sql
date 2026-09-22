@@ -124,3 +124,17 @@ INSERT INTO EventType (TypeName) VALUES
     ('Walk'),
     ('Cycle');
 GO
+
+-- Seed Users
+INSERT INTO [User] (FirstName, LastName, Email, PasswordHash, PhoneNumber, RoleId) VALUES
+    ('Thabo',  'Mokoena', 'thabo.organiser@raceday.co.za',   'HASH_ORG_1', '0821110001', 1),
+    ('Lerato', 'Nkosi',   'lerato.organiser@raceday.co.za',  'HASH_ORG_2', '0821110002', 1),
+    ('Sipho',  'Dlamini', 'sipho.participant@raceday.co.za', 'HASH_PAR_1', '0821110003', 2),
+    ('Aisha',  'Patel',   'aisha.participant@raceday.co.za', 'HASH_PAR_2', '0821110004', 2);
+
+-- Seed Events
+INSERT INTO Event (Name, Description, EventDate, Location, Distance, EventTypeId, OrganiserId) VALUES
+    ('Comrades Warm-Up 10K',     'A 10km road run to prepare for Comrades.',   '2026-04-12 06:00:00', 'Durban Beachfront, KZN', 10.00, 1, 1),
+    ('Cape Town Cycle Tour Lite','Family-friendly 30km cycle.',               '2026-05-03 07:30:00', 'Green Point, Cape Town', 30.00, 3, 2),
+    ('Soweto Charity Walk',      'A 5km walk raising funds for local schools.','2026-06-21 08:00:00', 'Orlando Stadium, Soweto', 5.00, 2, 1);
+GO
