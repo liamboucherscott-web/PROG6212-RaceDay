@@ -146,3 +146,25 @@ A Participant enrols in an event by choosing a category. This creates an Enrolme
 | DELETE | `/api/enrolments/{id}` | Cancels the Participant's own enrolment. | Participant | None | 204 No Content — cancelled. 403 Forbidden — not the owner. 404 Not Found — enrolment doesn't exist. |
 | GET | `/api/events/{eventId}/enrolments` | Returns a list of all enrolments for an event. Only the owning Organiser can view this. | Organiser | None | 200 OK — array of enrolments. 403 Forbidden — not the event owner. 404 Not Found — event doesn't exist. |
 
+---
+
+## 6. Results
+
+After an event finishes, the Organiser captures each participant's finish time and finishing position. Participants can then view their own results as part of their race history.
+
+| Method | Route | Description | Role Required | Request Body | Expected Response |
+|---|---|---|---|---|---|
+| POST | `/api/enrolments/{enrolmentId}/result` | Captures a result for an enrolment. Only the owning Organiser can do this. | Organiser | `{ finishTime, finishingPosition }` | 201 Created — new result. 400 Bad Request — invalid data. 403 Forbidden — not the event owner. 404 Not Found — enrolment doesn't exist. 409 Conflict — result already captured. |
+| PUT | `/api/results/{id}` | Updates an existing result. Only the owning Organiser can edit it. | Organiser | `{ finishTime, finishingPosition }` | 200 OK — updated result. 403 Forbidden — not the event owner. 404 Not Found — result doesn't exist. |
+| GET | `/api/results/my` | Returns all results belonging to the logged-in Participant. | Participant | None | 200 OK — array of results with event name, date, category, finish time, and position. 401 Unauthorized — not logged in. |
+| GET | `/api/results/{id}` | Returns a single result. Only the owning Participant or the event's Organiser can view it. | Any (owner or Organiser) | None | 200 OK — result details. 403 Forbidden — not allowed. 404 Not Found — result doesn't exist. |
+| GET | `/api/events/{eventId}/results` | Returns all results for an event. Only the owning Organiser can view this. | Organiser | None | 200 OK — array of results. 403 Forbidden — not the event owner. 404 Not Found — event doesn't exist. |
+
+---
+
+## Endpoint Plan Complete
+
+Total endpoints planned: **28**
+
+This plan is the specification for the Part 2 ASP.NET Core Web API implementation. Any deviation from this plan in the final implementation must be documented in the README.
+
