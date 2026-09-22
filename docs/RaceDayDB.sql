@@ -100,3 +100,27 @@ CREATE TABLE Result (
     CHECK (FinishingPosition > 0)
 );
 GO
+
+-- Seed Roles
+INSERT INTO Role (RoleName) VALUES
+    ('Organiser'),
+    ('Participant');
+
+-- Seed Event Types
+INSERT INTO EventType (TypeName) VALUES
+    ('Run'),
+    ('Walk'),
+    ('Cycle');
+GO
+
+-- Seed Roles
+INSERT INTO Role (RoleName) VALUES
+    ('Organiser'),
+    ('Participant');
+
+-- Seed Event Types
+INSERT INTO EventType (TypeName) VALUES
+    ('Run'),
+    ('Walk'),
+    ('Cycle');
+GO
