@@ -76,3 +76,17 @@ This document defines every REST API endpoint the RaceDay backend will expose. I
 
 | \*\*Total\*\* | \*\*28\*\* |
 
+
+---
+
+## 1. Authentication
+
+These endpoints handle registration, login, logout, and getting the current user. Register and login are the only endpoints anyone can call without being logged in.
+
+| Method | Route | Description | Role Required | Request Body | Expected Response |
+|---|---|---|---|---|---|
+| POST | `/api/auth/register` | Creates a new user account and lets them pick Organiser or Participant. | None | `{ firstName, lastName, email, password, phoneNumber, roleId }` | 201 Created — returns the new user. 400 Bad Request — missing or invalid fields. 409 Conflict — email already in use. |
+| POST | `/api/auth/login` | Logs a user in and starts a session so the API remembers who they are. | None | `{ email, password }` | 200 OK — returns user info and role. 400 Bad Request — fields missing. 401 Unauthorized — wrong email or password. |
+| POST | `/api/auth/logout` | Ends the user's session. | Any | None | 200 OK — session cleared. 401 Unauthorized — not logged in. |
+| GET | `/api/auth/me` | Returns the details of whoever is currently logged in. | Any | None | 200 OK — current user info. 401 Unauthorized — not logged in. |
+
