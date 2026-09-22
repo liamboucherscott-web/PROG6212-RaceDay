@@ -72,3 +72,19 @@ CREATE TABLE Category (
     FOREIGN KEY (EventId) REFERENCES Event(EventId) ON DELETE CASCADE
 );
 GO
+
+-- Enrolment table
+CREATE TABLE Enrolment (
+    EnrolmentId   INT IDENTITY(1,1) PRIMARY KEY,
+    UserId        INT           NOT NULL,
+    EventId       INT           NOT NULL,
+    CategoryId    INT           NOT NULL,
+    EnrolmentDate DATETIME      NOT NULL DEFAULT GETDATE(),
+    Status        NVARCHAR(20)  NOT NULL DEFAULT 'Confirmed',
+    FOREIGN KEY (UserId)     REFERENCES [User](UserId),
+    FOREIGN KEY (EventId)    REFERENCES Event(EventId),
+    FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId),
+    UNIQUE (UserId, EventId, CategoryId),
+    CHECK (Status IN ('Confirmed','Pending','Cancelled'))
+);
+GO
