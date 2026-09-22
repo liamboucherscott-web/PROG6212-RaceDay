@@ -28,3 +28,18 @@ CREATE TABLE EventType (
     TypeName    NVARCHAR(50) NOT NULL UNIQUE
 );
 GO
+
+-- User table
+CREATE TABLE [User] (
+    UserId          INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName       NVARCHAR(50)  NOT NULL,
+    LastName        NVARCHAR(50)  NOT NULL,
+    Email           NVARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash    NVARCHAR(255) NOT NULL,
+    PhoneNumber     NVARCHAR(20)  NULL,
+    ProfileImageUrl NVARCHAR(500) NULL,
+    RoleId          INT           NOT NULL,
+    CreatedAt       DATETIME      NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (RoleId) REFERENCES Role(RoleId)
+);
+GO
