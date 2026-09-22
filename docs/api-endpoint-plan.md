@@ -118,3 +118,17 @@ Events are created and managed by Organisers. Both Organisers and Participants c
 | DELETE | `/api/events/{id}` | Deletes an event. Only the owning Organiser can delete it. | Organiser | None | 204 No Content — deleted. 403 Forbidden — not the owner. 404 Not Found — event doesn't exist. |
 | POST | `/api/events/{id}/banner` | Uploads a banner image for an event. Stored in Azure Blob Storage (Part 3). | Organiser | `multipart/form-data` | 200 OK — image URL. 400 Bad Request — no file or wrong format. 403 Forbidden — not the owner. |
 
+---
+
+## 4. Categories
+
+Categories are age or distance groups for an event (like "Under 20", "Senior", "10km", "21km"). Organisers add them to their own events. Both roles can view available categories.
+
+| Method | Route | Description | Role Required | Request Body | Expected Response |
+|---|---|---|---|---|---|
+| GET | `/api/events/{eventId}/categories` | Returns a list of all categories for a specific event. | Any | None | 200 OK — array of categories. 404 Not Found — event doesn't exist. |
+| GET | `/api/categories/{id}` | Returns the details of one category. | Any | None | 200 OK — category details. 404 Not Found — category doesn't exist. |
+| POST | `/api/events/{eventId}/categories` | Adds a new category to an event. Only the owning Organiser can do this. | Organiser | `{ name, description, maxParticipants, entryFee }` | 201 Created — new category. 400 Bad Request — invalid data. 403 Forbidden — not the event owner. |
+| PUT | `/api/categories/{id}` | Updates a category. Only the owning Organiser can edit it. | Organiser | `{ name, description, maxParticipants, entryFee }` | 200 OK — updated category. 403 Forbidden — not the owner. 404 Not Found — category doesn't exist. |
+| DELETE | `/api/categories/{id}` | Deletes a category. Only the owning Organiser can delete it. | Organiser | None | 204 No Content — deleted. 403 Forbidden — not the owner. 404 Not Found — category doesn't exist. |
+
