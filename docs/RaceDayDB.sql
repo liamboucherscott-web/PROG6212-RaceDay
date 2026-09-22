@@ -1,4 +1,4 @@
-- RaceDay Database Script
+-- RaceDay Database Script
 -- PROG6212 - Programming 2B
 -- Liam Scott - ST10467183
 
@@ -113,18 +113,6 @@ INSERT INTO EventType (TypeName) VALUES
     ('Cycle');
 GO
 
--- Seed Roles
-INSERT INTO Role (RoleName) VALUES
-    ('Organiser'),
-    ('Participant');
-
--- Seed Event Types
-INSERT INTO EventType (TypeName) VALUES
-    ('Run'),
-    ('Walk'),
-    ('Cycle');
-GO
-
 -- Seed Users
 INSERT INTO [User] (FirstName, LastName, Email, PasswordHash, PhoneNumber, RoleId) VALUES
     ('Thabo',  'Mokoena', 'thabo.organiser@raceday.co.za',   'HASH_ORG_1', '0821110001', 1),
@@ -161,4 +149,4 @@ INSERT INTO Result (EnrolmentId, FinishTime, FinishingPosition) VALUES
     (3, '00:38:05', 12);
 
 PRINT 'RaceDayDB created and seeded successfully.';
-GO
+GOGO
