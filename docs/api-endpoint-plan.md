@@ -132,3 +132,17 @@ Categories are age or distance groups for an event (like "Under 20", "Senior", "
 | PUT | `/api/categories/{id}` | Updates a category. Only the owning Organiser can edit it. | Organiser | `{ name, description, maxParticipants, entryFee }` | 200 OK — updated category. 403 Forbidden — not the owner. 404 Not Found — category doesn't exist. |
 | DELETE | `/api/categories/{id}` | Deletes a category. Only the owning Organiser can delete it. | Organiser | None | 204 No Content — deleted. 403 Forbidden — not the owner. 404 Not Found — category doesn't exist. |
 
+---
+
+## 5. Event Enrolments
+
+A Participant enrols in an event by choosing a category. This creates an Enrolment that links the Participant, the Event, and the Category together. Organisers can view all enrolments for their own events.
+
+| Method | Route | Description | Role Required | Request Body | Expected Response |
+|---|---|---|---|---|---|
+| POST | `/api/enrolments` | Enrols the logged-in Participant in an event by selecting a category. | Participant | `{ eventId, categoryId }` | 201 Created — new enrolment. 400 Bad Request — invalid data. 403 Forbidden — not a Participant. 409 Conflict — already enrolled in this event and category. |
+| GET | `/api/enrolments/my` | Returns all enrolments belonging to the logged-in Participant. | Participant | None | 200 OK — array of enrolments. 401 Unauthorized — not logged in. |
+| GET | `/api/enrolments/{id}` | Returns a single enrolment. Only the participant who made it or the event's Organiser can view it. | Any (owner or Organiser) | None | 200 OK — enrolment details. 403 Forbidden — not allowed. 404 Not Found — enrolment doesn't exist. |
+| DELETE | `/api/enrolments/{id}` | Cancels the Participant's own enrolment. | Participant | None | 204 No Content — cancelled. 403 Forbidden — not the owner. 404 Not Found — enrolment doesn't exist. |
+| GET | `/api/events/{eventId}/enrolments` | Returns a list of all enrolments for an event. Only the owning Organiser can view this. | Organiser | None | 200 OK — array of enrolments. 403 Forbidden — not the event owner. 404 Not Found — event doesn't exist. |
+
