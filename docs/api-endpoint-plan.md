@@ -103,3 +103,18 @@ Both Organisers and Participants can view and update their own profile. They can
 | PUT | `/api/users/{id}` | Updates the logged-in user's own profile info. | Any (self only) | `{ firstName, lastName, phoneNumber, profileImageUrl }` | 200 OK — updated user. 400 Bad Request — invalid data. 403 Forbidden — trying to edit someone else. |
 | POST | `/api/users/{id}/profile-image` | Uploads a profile picture. The file goes to Azure Blob Storage via the API. | Any (self only) | `multipart/form-data` | 200 OK — returns the image URL. 400 Bad Request — no file or wrong format. 403 Forbidden — trying to upload for someone else. |
 
+---
+
+## 3. Events
+
+Events are created and managed by Organisers. Both Organisers and Participants can browse and view events. Each event has a name, description, date, location, distance, and an event type (Run, Walk, or Cycle).
+
+| Method | Route | Description | Role Required | Request Body | Expected Response |
+|---|---|---|---|---|---|
+| GET | `/api/events` | Returns a list of all events. Can be filtered by event type or date. | Any | None | 200 OK — array of events. |
+| GET | `/api/events/{id}` | Returns the full details of one event. | Any | None | 200 OK — event details. 404 Not Found — event doesn't exist. |
+| POST | `/api/events` | Creates a new event. Only Organisers can do this, and the event is linked to them. | Organiser | `{ name, description, eventDate, location, distance, eventTypeId }` | 201 Created — new event. 400 Bad Request — validation error. 401 Unauthorized — not logged in. 403 Forbidden — not an Organiser. |
+| PUT | `/api/events/{id}` | Updates an event. Only the Organiser who created it can edit it. | Organiser | `{ name, description, eventDate, location, distance, eventTypeId }` | 200 OK — updated event. 403 Forbidden — not the owner. 404 Not Found — event doesn't exist. |
+| DELETE | `/api/events/{id}` | Deletes an event. Only the owning Organiser can delete it. | Organiser | None | 204 No Content — deleted. 403 Forbidden — not the owner. 404 Not Found — event doesn't exist. |
+| POST | `/api/events/{id}/banner` | Uploads a banner image for an event. Stored in Azure Blob Storage (Part 3). | Organiser | `multipart/form-data` | 200 OK — image URL. 400 Bad Request — no file or wrong format. 403 Forbidden — not the owner. |
+
