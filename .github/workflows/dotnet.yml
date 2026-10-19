@@ -19,10 +19,10 @@ jobs:
         dotnet-version: 10.0.x
         
     - name: Restore dependencies
-      run: dotnet restore RaceDay.sln
+      run: dotnet restore RaceDay.Api.sln
       
     - name: Build API
-      run: dotnet build RaceDay.sln --no-restore
+      run: dotnet build RaceDay.Api.sln --no-restore
       
     - name: Test
-      run: dotnet test RaceDay.sln --no-build --verbosity normal
+      run: dotnet test RaceDay.Api.sln --no-build --verbosity normal
