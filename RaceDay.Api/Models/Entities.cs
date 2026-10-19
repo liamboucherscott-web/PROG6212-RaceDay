@@ -40,6 +40,7 @@ public class Event
     public User Organiser { get; set; } = null!;
     public string? BannerImageUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public List<Category> Categories { get; set; } = new();
 }
 
 public class Category
