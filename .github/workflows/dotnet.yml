@@ -1,4 +1,4 @@
-name: .NET API Build and Test
+nname: .NET API Build and Test
 
 on:
   push:
@@ -19,10 +19,10 @@ jobs:
         dotnet-version: 10.0.x
         
     - name: Restore dependencies
-      run: dotnet restore RaceDay.Api.sln
+      run: dotnet restore RaceDay.Api/RaceDay.Api.csproj
       
     - name: Build API
-      run: dotnet build RaceDay.Api.sln --no-restore
+      run: dotnet build RaceDay.Api/RaceDay.Api.csproj --no-restore
       
     - name: Test
-      run: dotnet test RaceDay.Api.sln --no-build --verbosity normal
+      run: dotnet test RaceDay.Api.Tests/RaceDay.Api.Tests.csproj --no-build --verbosity normal
