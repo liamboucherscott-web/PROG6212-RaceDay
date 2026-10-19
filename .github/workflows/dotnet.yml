@@ -1,4 +1,5 @@
-nname: .NET API Build and Test
+
+name: .NET API Build and Test
 
 on:
   push:
