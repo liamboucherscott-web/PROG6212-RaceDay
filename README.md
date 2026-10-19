@@ -88,6 +88,6 @@ account at
 ### CI/CD Build
 Here's the screenshot of the GitHub Actions build passing:
 
-![Green Build](<img width="1436" height="636" alt="Screenshot 2026-10-19 131038" src="https://github.com/user-attachments/assets/3770b732-fbfa-47eb-a924-0cf431cf3a8f" />
-)
+<img width="1436" height="636" alt="Screenshot 2026-10-19 131038" src="https://github.com/user-attachments/assets/41389ef3-1096-4e9d-88b8-e89c44abcd4d" />
+
 
