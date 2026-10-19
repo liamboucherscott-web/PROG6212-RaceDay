@@ -25,6 +25,10 @@ public class RaceDayDbContext : DbContext
         modelBuilder.Entity<Enrolment>().ToTable("Enrolment");
         modelBuilder.Entity<Result>().ToTable("Result");
 
+        // Decimal precision
+        modelBuilder.Entity<Event>().Property(e => e.Distance).HasPrecision(6, 2);
+        modelBuilder.Entity<Category>().Property(c => c.EntryFee).HasPrecision(8, 2);
+
         modelBuilder.Entity<Enrolment>()
             .HasIndex(e => new { e.UserId, e.EventId, e.CategoryId })
             .IsUnique();
@@ -37,6 +41,22 @@ public class RaceDayDbContext : DbContext
             .WithOne(e => e.Result)
             .HasForeignKey<Result>(r => r.EnrolmentId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // Stop cascade delete to prevent multiple cascade paths
+        modelBuilder.Entity<Enrolment>()
+            .HasOne(e => e.User)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Enrolment>()
+            .HasOne(e => e.Event)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Enrolment>()
+            .HasOne(e => e.Category)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Role>().HasData(
             new Role { RoleId = 1, RoleName = "Organiser" },
