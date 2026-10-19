@@ -69,3 +69,25 @@ account at
 - GitHub for version control
 - GitHub Actions for CI/CD
 - draw.io for the ERD
+
+---
+
+## Part 2: API Development
+
+### How to run it
+1. Open the project in Visual Studio.
+2. Make sure the database is set up (just run the SQL script in the `/docs` folder if you haven't yet).
+3. Open the terminal and run: `dotnet run --project RaceDay.Api`
+4. Go to the Swagger link it gives you (like `https://localhost:xxxx/swagger`) to test everything.
+
+### Roles
+- **Organiser:** Can create/edit/delete events, add categories, put in results, and see who enrolled.
+- **Participant:** Can look at events, enrol in a category, and check their own results.
+*(The API uses sessions to remember who is logged in and stops people from doing things they shouldn't).*
+
+### CI/CD Build
+Here's the screenshot of the GitHub Actions build passing:
+
+![Green Build](<img width="1436" height="636" alt="Screenshot 2026-10-19 131038" src="https://github.com/user-attachments/assets/3770b732-fbfa-47eb-a924-0cf431cf3a8f" />
+)
+
