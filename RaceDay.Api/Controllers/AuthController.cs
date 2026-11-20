@@ -18,9 +18,6 @@ public class AuthController : ControllerBase
     public record RegisterRequest(string FirstName, string LastName, string Email, string Password, string? PhoneNumber, int RoleId);
     public record LoginRequest(string Email, string Password);
 
-    /// <summary>
-    /// Register a user.
-    /// </summary>
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
@@ -40,12 +37,9 @@ public class AuthController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(Register), new { id = user.UserId }, new { user.UserId, user.Email, user.RoleId });
+        return StatusCode(201, new { user.UserId, user.Email, user.RoleId });
     }
 
-    /// <summary>
-    /// Login and start session.
-    /// </summary>
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
@@ -60,9 +54,6 @@ public class AuthController : ControllerBase
         return Ok(new { user.UserId, user.FirstName, user.LastName, Role = user.Role.RoleName });
     }
 
-    /// <summary>
-    /// Logout.
-    /// </summary>
     [HttpPost("logout")]
     [SessionRole("Any")]
     public IActionResult Logout()
@@ -71,9 +62,6 @@ public class AuthController : ControllerBase
         return Ok(new { message = "Logged out successfully." });
     }
 
-    /// <summary>
-    /// Get current user.
-    /// </summary>
     [HttpGet("me")]
     [SessionRole("Any")]
     public async Task<IActionResult> GetMe()

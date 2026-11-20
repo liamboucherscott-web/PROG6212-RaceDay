@@ -4,13 +4,18 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Register for RaceDay</h1>
+<h1>Register</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-6">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
 
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -34,6 +39,7 @@
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
+                <small class="text-muted">Note: For security, this field clears if the form has errors. Please ensure all fields are filled correctly.</small>
             </div>
 
             <div class="form-group">
@@ -43,23 +49,23 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="RoleId" class="control-label">Role</label>
+                <label asp-for="RoleId" class="control-label">Account Type</label>
                 <select asp-for="RoleId" class="form-control">
-                    <option value="1">Participant</option>
-                    <option value="2">Organiser</option>
+                    <option value="1">Organiser</option>
+                    <option value="2">Participant</option>
                 </select>
                 <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>
 
             <div class="form-group mt-3">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <input type="submit" value="Register" class="btn btn-primary w-100" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Login">Already have an account? Login here</a>
+<div class="mt-3">
+    <a asp-action="Login">Already have an account? Login</a>
 </div>
 
 @section Scripts {
