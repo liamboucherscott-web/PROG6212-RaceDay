@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RaceDay.Mvc.Models;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace RaceDay.Mvc.Controllers
@@ -14,7 +13,6 @@ namespace RaceDay.Mvc.Controllers
             _clientFactory = clientFactory;
         }
 
-        
         public async Task<IActionResult> BrowseEvents()
         {
             var client = _clientFactory.CreateClient("RaceDayAPI");
@@ -33,8 +31,6 @@ namespace RaceDay.Mvc.Controllers
         public async Task<IActionResult> Enrol(int eventId)
         {
             var client = _clientFactory.CreateClient("RaceDayAPI");
-
-            
             var response = await client.GetAsync($"/api/Events/{eventId}");
 
             if (response.IsSuccessStatusCode)
@@ -53,7 +49,6 @@ namespace RaceDay.Mvc.Controllers
             return RedirectToAction("BrowseEvents");
         }
 
-        
         [HttpPost]
         public async Task<IActionResult> Enrol(ParticipantEnrolmentViewModel model)
         {
@@ -62,7 +57,6 @@ namespace RaceDay.Mvc.Controllers
             var client = _clientFactory.CreateClient("RaceDayAPI");
             var userId = HttpContext.Session.GetString("UserId");
 
-            
             var enrolmentData = new
             {
                 userId = int.Parse(userId!),
@@ -70,16 +64,31 @@ namespace RaceDay.Mvc.Controllers
                 categoryId = model.CategoryId
             };
 
-          
             var response = await client.PostAsJsonAsync("/api/Enrolments", enrolmentData);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("MyEvents"); 
+                return RedirectToAction("MyEvents");
             }
 
-            ViewBag.Error = "Failed to enrol. Please check the category ID.";
+            ViewBag.Error = "Failed to enrol.";
             return View(model);
+        }
+
+        public async Task<IActionResult> MyEvents()
+        {
+            var client = _clientFactory.CreateClient("RaceDayAPI");
+            var userId = HttpContext.Session.GetString("UserId");
+            var response = await client.GetAsync($"/api/Enrolments?userId={userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var enrolments = JsonSerializer.Deserialize<List<EnrolmentViewModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return View(enrolments);
+            }
+
+            return View(new List<EnrolmentViewModel>());
         }
     }
 }
