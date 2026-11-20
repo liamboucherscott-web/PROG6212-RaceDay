@@ -1,0 +1,46 @@
+﻿@model List<RaceDay.Mvc.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Browse Events";
+}
+
+<h1>Browse Available Events</h1>
+
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(item.BannerImageUrl))
+                    {
+                        <img src="@item.BannerImageUrl" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px; color: white;">
+                            No Image Available
+                        </div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text text-muted"><i class="bi bi-calendar"></i> @item.EventDate.ToString("dd MMM yyyy")</p>
+                        <p class="card-text"><strong>Location:</strong> @item.Location</p>
+                        <p class="card-text"><strong>Distance:</strong> @item.Distance km</p>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="#" class="btn btn-primary w-100">View Details & Enrol</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12">
+            <p class="text-center">No events available at the moment.</p>
+        </div>
+    }
+</div>
