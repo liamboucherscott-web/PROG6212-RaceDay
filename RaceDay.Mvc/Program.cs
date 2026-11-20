@@ -3,9 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
+var apiUrl = builder.Configuration["API_URL"] ?? "https://localhost:7150/";
+
 builder.Services.AddHttpClient("RaceDayAPI", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7150/");
+    client.BaseAddress = new Uri(apiUrl);
 });
 
 var app = builder.Build();
