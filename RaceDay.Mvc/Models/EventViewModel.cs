@@ -5,6 +5,9 @@ namespace RaceDay.Mvc.Models
 {
     public class EventViewModel
     {
+      
+        public int EventId { get; set; }
+
         [Required]
         public string Name { get; set; } = string.Empty;
 

@@ -1,0 +1,58 @@
+﻿@model List<RaceDay.Mvc.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Manage Events";
+}
+
+<h1>Manage Events</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Event</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Banner</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Distance</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.BannerImageUrl))
+                        {
+                            <img src="@item.BannerImageUrl" alt="Banner" style="width: 80px; height: 50px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.EventDate.ToString("dd MMM yyyy")</td>
+                    <td>@item.Location</td>
+                    <td>@item.Distance km</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.EventId" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.EventId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">No events found. Create your first event!</td>
+            </tr>
+        }
+    </tbody>
+</table>
