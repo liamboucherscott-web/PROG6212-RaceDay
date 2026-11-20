@@ -1,93 +1,71 @@
 
----
+# RaceDay - PROG6212 Portfolio of Evidence
 
-## Part 1 — What's in this submission
+## 🚀 Live Deployment Links
+- **Frontend (MVC Application):** [https://raceday-api-liam-gnffh4gzanhebkh9.centralindia-01.azurewebsites.net](https://raceday-api-liam-gnffh4gzanhebkh9.centralindia-01.azurewebsites.net)
+- **Backend (RESTful API):** [https://raceday-api-liam104-amcsgffjasfjfgf8.centralindia-01.azurewebsites.net](https://raceday-api-liam104-amcsgffjasfjfgf8.centralindia-01.azurewebsites.net)
 
-**ERD** — `docs/ERD.png`
-Shows the 7 entities (Role, EventType, User, Event, Category, Enrolment,
-Result), their attributes, and every relationship with cardinality.
-
-**API Endpoint Plan** — `docs/api-endpoint-plan.md`
-Lists all 28 endpoints across 6 resource groups (Authentication, User
-Profile, Events, Categories, Enrolments, Results), including role
-restrictions and all success/failure response codes.
-
-**SQL Database Script** — `docs/RaceDayDB.sql`
-Creates the full RaceDay database on SQL Server, matching the ERD exactly.
-Includes all primary keys, foreign keys, and constraints, plus realistic
-seed data (4 users, 3 events, 5 categories, 4 enrolments, 3 results).
+*(Note: The application is hosted on Azure's Free Tier. Please open the Backend API URL first and give it 30–60 seconds to "warm up" from a cold start, then open the Frontend URL.)*
 
 ---
 
-## How to Run the SQL Script
-
-1. Clone this repository
-2. Open `docs/RaceDayDB.sql` in SQL Server Management Studio (SSMS)
-3. Connect to any local SQL Server instance (Developer edition works fine)
-4. Press **F5** to run the whole script
-5. The database `RaceDayDB` will be created and seeded automatically
-
-The script force-drops the database first if it already exists, so it's
-safe to re-run as many times as you want.
+## 📺 Video Walkthrough
+[Watch the Video Walkthrough on YouTube](https://youtu.be/bs2I2O4bS6k)
 
 ---
 
-## Entity Relationship Diagram
+## 📖 System Overview
+**RaceDay** is a full-stack event management platform for the South African road running, walking, and cycling community. It allows Event Organisers to create and manage events, and Participants to browse and enrol in them. 
 
-![RaceDay ERD](docs/ERD.png)
+The system follows a **decoupled architecture**:
+- **Part 2 (Backend):** ASP.NET Core Web API (C#) with Entity Framework Core and Swagger. Handles all business logic, authentication, and Azure Blob Storage.
+- **Part 3 (Frontend):** ASP.NET Core MVC application. It consumes the RESTful API using `HttpClient` and handles session-based authentication for the user interface. 
 
----
+### 🔐 Roles & Features
+1. **Organiser:**
+   - Dashboard with event summaries and enrolment counts.
+   - Create, edit, and delete events (including uploading event banner images to Azure Blob Storage).
+   - Manage categories (age/distance) per event.
+   - View enrolments and capture final results (finish times and positions).
+2. **Participant:**
+   - Browse upcoming events and filter by type.
+   - Enrol in specific event categories.
+   - View personal enrolment history and race results.
+   - Update personal profiles and upload profile pictures.
 
-## CI/CD Status
-
-![Green Build](docs/ci-screenshot.png)
-
-### Note on CI/CD
-
-GitHub Actions is disabled at the organization level on EMGPPT, so the
-workflow can't run inside the org repo. The workflow file is still in this
-repository at `.github/workflows/validate-docs.yml` and is fully set up to
-check that the `/docs` folder contains all the required files.
-
-To prove the workflow runs, I mirrored the repository to my personal
-account at
-[https://github.com/liamboucherscott-web/PROG6212-RaceDay](https://github.com/liamboucherscott-web/PROG6212-RaceDay)
-— the screenshot above shows a successful green build from there.
-
----
-
-## Video Walkthrough
-
-[Watch the Part 1 video on YouTube](https://youtu.be/bs2I2O4bS6k)
+*Role-based access is strictly enforced at the API level and reflected in the MVC interface.*
 
 ---
 
-## Tools Used
+## 🗄️ Database Note (Important for Grader)
+For the **live Azure deployment**, the API is configured to use **Entity Framework Core In-Memory Database**. This was chosen intentionally to ensure the application remains fully functional, fast, and stable on the Azure Free Tier without incurring SQL Server hosting costs or timing out during the grading process.
 
-- SQL Server 2025 (Developer edition)
-- SQL Server Management Studio (SSMS)
-- GitHub for version control
-- GitHub Actions for CI/CD
-- draw.io for the ERD
+For **Part 1 compliance**, the complete SQL Server script (`docs/RaceDayDB.sql`) is still provided in the repository and can be run locally in SSMS. The Entity Framework models and the SQL script match the ERD exactly.
 
 ---
 
-## Part 2: API Development
+## 🛠️ Part 1: System Planning and Database
+The `/docs` folder contains all planning artifacts as required:
+- **ERD:** `docs/ERD.png` (Shows 7 entities: Role, EventType, User, Event, Category, Enrolment, Result).
+- **API Endpoint Plan:** `docs/api-endpoint-plan.md` (28 endpoints across 6 resource groups).
+- **SQL Script:** `docs/RaceDayDB.sql` (Creates and seeds the full relational database).
 
-### How to run it
-1. Open the project in Visual Studio.
-2. Make sure the database is set up (just run the SQL script in the `/docs` folder if you haven't yet).
-3. Open the terminal and run: `dotnet run --project RaceDay.Api`
-4. Go to the Swagger link it gives you (like `https://localhost:xxxx/swagger`) to test everything.
+**How to run the SQL Script locally:**
+1. Open `docs/RaceDayDB.sql` in SQL Server Management Studio (SSMS).
+2. Connect to a local SQL Server instance.
+3. Press **F5** to execute. It will force-drop and recreate the `RaceDayDB` database with seed data.
 
-### Roles
-- **Organiser:** Can create/edit/delete events, add categories, put in results, and see who enrolled.
-- **Participant:** Can look at events, enrol in a category, and check their own results.
-*(The API uses sessions to remember who is logged in and stops people from doing things they shouldn't).*
+---
 
-### CI/CD Build
-Here's the screenshot of the GitHub Actions build passing:
+## 💻 Part 2 & 3: How to Run Locally (Docker)
 
-<img width="1436" height="636" alt="Screenshot 2026-10-19 131038" src="https://github.com/user-attachments/assets/41389ef3-1096-4e9d-88b8-e89c44abcd4d" />
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+- .NET 10 SDK (if running without Docker).
 
+### 🐳 Running with Docker (Recommended)
+The application is fully containerised. To build and run the API container, use the following command in the root directory:
 
+```bash
+docker build -t raceday-api -f RaceDay.Api/Dockerfile .
+docker run -d -p 8080:8080 -p 8081:8081 --name raceday-container raceday-api
